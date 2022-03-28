@@ -22,7 +22,7 @@
     <v-container>
         <v-data-table :headers="headers" :items="showList">
             <template v-slot:[`item.title`]="{ item }">
-                <a v-if="item.title">{{item.title}}</a>
+                <a v-if="item.id" :href="`/post/${item.id}/detail`">{{item.title}}</a>
             </template>
             <template v-slot:[`item.operation`]>
                 <v-row>
