@@ -16,14 +16,16 @@ export default {
          * @returns void
          */
         logout() {
-            this.$store
-                .dispatch("logout")
-                .then(() => {
-                    this.$router.push({ name: "login" });
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            localStorage.clear();
+            this.$router.push("/login");
+            // this.$store
+            //     .dispatch("logout")
+            //     .then(() => {
+            //         this.$router.push({ name: "login" });
+            //     })
+            //     .catch((err) => {
+            //         console.log(err);
+            //     });
         },
         /**
          * This is to route profile page.
