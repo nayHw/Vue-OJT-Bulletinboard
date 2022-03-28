@@ -2,7 +2,10 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Login from "../pages/user/Login";
+//post
 import PostList from "../pages/post/PostList";
+import PostDetail from "../pages/post/PostDetail";
+
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -17,6 +20,11 @@ const routes = [
         path: "/post/list",
         name: "post-list",
         component: PostList,
+    },
+    {
+        path: "/post/:id/detail",
+        name: "post-detail",
+        component: PostDetail
     },
     {
         path: "/*",
