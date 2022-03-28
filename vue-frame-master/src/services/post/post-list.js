@@ -6,6 +6,7 @@ export default {
             dialogTitle: "",
             dialog: false,
             isDeleteDialog: false,
+            keyword: '',
             headerList: [
                 {
                     text: "ID",
@@ -60,13 +61,13 @@ export default {
          * @returns void
          */
         filterPosts() {
-            this.showList = this.postList.filter((post) => {
+            this.showList = this.postList.filter(post=>{
                 return (
-                    post.title.includes(this.keyword) ||
-                    post.description.includes(this.keyword) ||
-                    post.created_user.includes(this.keyword)
+                    post.title.toLowerCase().includes(this.keyword.toLowerCase()) || 
+                    post.description.toLowerCase().includes(this.keyword.toLowerCase()) 
                 );
-            });
+              });
+            console.log(this.showList);
         },
     },
 };
