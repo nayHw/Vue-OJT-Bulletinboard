@@ -68,6 +68,6 @@ export default {
                 );
               });
             console.log(this.showList);
-        },
+        }
     },
 };
