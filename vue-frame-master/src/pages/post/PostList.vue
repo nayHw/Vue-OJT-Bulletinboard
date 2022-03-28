@@ -3,17 +3,21 @@
     <v-card-title>
         Post list
         <v-spacer></v-spacer>
-        <v-form ref="form">
+        <div>
             <v-row class="filter-bar">
-                <v-col md="2.5">
-                    <v-text-field label="Search keyword" hide-details="auto"></v-text-field>
-                </v-col>
-                <v-btn class="post-list-btn mr-4" color="primary">Filter</v-btn>
-                <v-btn class="post-list-btn mr-4" color="primary">Create</v-btn>
+                <v-form ref="form" class="d-flex" v-on:submit.prevent="filterPosts">
+                    <v-text-field label="Search keyword" hide-details="auto" v-model="keyword"></v-text-field> 
+                    <v-btn class="post-list-btn mr-4" color="primary" type="submit">Filter</v-btn>
+                </v-form>
+                <v-btn class="post-list-btn mr-4" color="primary">    
+                    <router-link to="/post/create" class="white--text text-decoration-none">
+                        Create
+                    </router-link>
+                </v-btn>    
                 <v-btn class="post-list-btn mr-4" color="primary">Upload</v-btn>
                 <v-btn class="post-list-btn mr-4" color="primary">Download</v-btn>
             </v-row>
-        </v-form>
+        </div>
     </v-card-title>
     <v-container>
         <v-data-table :headers="headers" :items="showList">
