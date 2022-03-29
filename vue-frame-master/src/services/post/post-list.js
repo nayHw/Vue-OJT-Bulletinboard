@@ -23,7 +23,7 @@ export default {
                 },
                 {
                     text: "Posted User",
-                    value: "created_user",
+                    value: "created_user_name",
                 },
                 {
                     text: "Operation",
