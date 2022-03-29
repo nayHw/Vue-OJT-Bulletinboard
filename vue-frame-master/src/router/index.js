@@ -7,6 +7,7 @@ import UserList from "../pages/user/UserList";
 import PostList from "../pages/post/PostList";
 import PostDetail from "../pages/post/PostDetail";
 import PostCreate from "../pages/post/PostCreate";
+import PostEdit from "../pages/post/PostEdit";
 
 import store from "../store";
 
@@ -36,6 +37,11 @@ const routes = [
     {   path: "/post/create",
         name: "post-create",
         component: PostCreate
+    },
+    {
+        path: "/post/:id/edit",
+        name: "post-edit",
+        component: PostEdit
     },
     {
         path: "/*",
