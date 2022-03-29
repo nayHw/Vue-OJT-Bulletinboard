@@ -22,16 +22,21 @@ export default {
                     value: "address",
                 },
                 {
-                    text: "Phone",
+                    text: "Phone No",
                     value: "phone",
+                },
+                {
+                    text: "User Type",
+                    value: "type",
                 },
                 {
                     text: "Operation",
                     value: "operation",
                 },
             ],
+            userType : ["Admin","User","Visitor"],
             userList: [],
-            showList: []
+            showList: [],
         };
     },
     computed: {
@@ -49,6 +54,7 @@ export default {
             .get("/users")
             .then((response) => {
                 this.userList = response.data;
+                this.userList[0].type = this.userType[this.userList[0].type];
                 this.showList = this.userList;
             })
             .catch((err) => {
@@ -63,7 +69,8 @@ export default {
         filterUser() {
             this.userList = this.showList.filter(user=>{
                 return (
-                    user.name.toLowerCase().includes(this.keyword.toLowerCase())
+                    user.name.toLowerCase().includes(this.keyword.toLowerCase()) ||
+                    user.email.toLowerCase().includes(this.keyword.toLowerCase())
                 );
               });
             console.log(this.userList);
@@ -71,7 +78,7 @@ export default {
         deleteUser(id){
             if(confirm("Are you sure you want to delete this selected user?")){
                 this.$axios
-                    .delete(`/posts/${id}/delete`)
+                    .delete(`/users/${id}/delete`)
                     .then(() => {
                         this.$router.go(this.$router.currentRoute)
                     })

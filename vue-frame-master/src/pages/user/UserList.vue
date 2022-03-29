@@ -10,7 +10,7 @@
                     <v-btn class="post-list-btn mr-4" color="primary" type="submit">Filter</v-btn>
                 </v-form>
                 <v-btn class="post-list-btn mr-4" color="primary">    
-                    <router-link to="/post/create" class="white--text text-decoration-none">
+                    <router-link to="/user/create" class="white--text text-decoration-none">
                         Create
                     </router-link>
                 </v-btn>    
@@ -22,7 +22,7 @@
     <v-container>
         <v-data-table :headers="headers" :items="userList">
             <template v-slot:[`item.title`]="{ item }">
-                <a v-if="item.id" :href="`/post/${item.id}/detail`">{{item.title}}</a>
+                <a v-if="item.id" :href="`/user/${item.id}/detail`">{{item.title}}</a>
             </template>
             <template v-slot:[`item.operation`] = "{ item }">
                 <v-row>
