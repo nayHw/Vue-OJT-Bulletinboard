@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Login from "../pages/user/Login";
+import UserList from "../pages/user/UserList";
 //post
 import PostList from "../pages/post/PostList";
 import PostDetail from "../pages/post/PostDetail";
@@ -15,6 +16,11 @@ const routes = [
         path: "/login",
         name: "login",
         component: Login,
+    },
+    {
+        path:"/user/list",
+        name: "user-list",
+        component: UserList
     },
     {
         path: "/post/list",
