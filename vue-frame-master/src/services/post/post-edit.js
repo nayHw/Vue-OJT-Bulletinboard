@@ -1,48 +1,65 @@
 
 import axios from "axios";
 export default {
-    data: () => ({
-        valid: true,
-        titleRules: [
-            v => !!v || 'Titile is required',
-            v => (v && v.length > 10) || 'title must be greater than 10 characters',
-        ],
-        descriptionRules: [
-            v => !!v || 'Description is required',
-            v => (v && v.length > 20) || 'description must be greater than 20 characters',
-        ],
-        newItem: {
-            title: "",
-            description: "",
-            created_user_id: "",
-            checkbox: false,
-            created_user_name: ""
-        },
-
-    }),
-    created:{
-
+  data: () => ({
+    dialog: false,
+    valid: true,
+    id: '',
+    titleRules: [
+      v => !!v || "Titile is required",
+      v => (v && v.length > 20) || "title must be greater than 20 characters"
+    ],
+    descriptionRules: [
+      v => !!v || "Description is required",
+      v =>
+        (v && v.length > 50) || "description must be greater than 50 characters"
+    ],
+    editPost: {
+        title: "",
+        description: "",
+        created_user_id: "",
+        created_user_name: "",
+        status:"",
     },
-    mounted() {
-        this.newItem.created_user_id = this.$store.getters.userId;
-        this.newItem.created_user_name = this.$store.getters.userName;
+    postList :[]
+  }),
+  mounted() {
+    this.$axios
+    .get(`/posts/${this.$route.params.id}/show`)
+    .then((response) => {
+        this.postList = response.data;
+        this.editPost = this.postList;
+        console.log(this.editPost);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+  },
+  methods: {
+    clear() {
+        this.editPost.title = "";
+        this.editPost.description = "";
     },
-    methods: {
-        clear() {
-            (this.newItem.title = ""), (this.newItem.description = "");
-            alert(this.newItem.created_user_name);
-        },
-        addItem() {
-            var input = this.newItem;
-            axios.post("/posts/create", input).then(() => {
-                this.newItem = {
-                    title: "",
-                    description: "",
-                    created_user_id: "",
-                    created_user_name: ""
-                };
-                this.$router.push("/post/list");
-            });
+    dialogBox() {
+        if(this.editPost.title.length > 20 && this.editPost.description.length > 50){  
+            this.dialog = true;
         }
+    },
+    Cancel(){
+        this.dialog = false;
+    },
+    updatePost() {
+      var input = this.editPost;
+      axios.patch(`/posts/${this.$route.params.id}/edit`, input).then(() => {
+        this.editPost = {
+          title: "",
+          description: "",
+          created_user_id: "",
+          created_user_name: ""
+        };
+        this.$router.push("/post/list");
+      });
     }
+  }
 };
+
