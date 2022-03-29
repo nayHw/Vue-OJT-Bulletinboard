@@ -11,6 +11,12 @@ export default {
         ...mapGetters(["isLoggedIn", "userType", "userName"]),
     },
     methods: {
+        postList(){
+            this.$router.push('/post/list');
+        },
+        userList(){
+            this.$router.push('/user/list');
+        },
         /**
          * This is to log out from system.
          * @returns void
