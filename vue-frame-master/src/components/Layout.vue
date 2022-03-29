@@ -7,9 +7,18 @@
                     <v-toolbar-title class="title">
                         <span>{{ title }}</span>
                     </v-toolbar-title>
-                    <div class="route-links">
-                    </div>
                     <v-spacer></v-spacer>
+                    <div class="route-links" v-if="isLoggedIn">
+                        <v-list color="primary">
+                            <v-list-item @click="postList()" class="float-left">
+                                <v-list-item-title>Post</v-list-item-title>
+                            </v-list-item>
+                            <v-list-item @click="userList()">
+                                <v-list-item-title>User</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </div>
+
                     <div class="route-links">
                         <v-menu offset-y v-if="isLoggedIn">
                             <template v-slot:activator="{ on }">

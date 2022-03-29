@@ -2,10 +2,6 @@ import { mapGetters } from "vuex";
 export default {
     data() {
         return {
-            postInfo: null,
-            dialogTitle: "",
-            dialog: false,
-            isDeleteDialog: false,
             keyword: '',
             headerList: [
                 {
@@ -14,24 +10,28 @@ export default {
                     value: "id",
                 },
                 {
-                    text: "Post Title",
-                    value: "title",
+                    text: "Name",
+                    value: "name",
                 },
                 {
-                    text: "Post Desciption",
-                    value: "description",
+                    text: "Email",
+                    value: "email",
                 },
                 {
-                    text: "Posted User",
-                    value: "created_user_name",
+                    text: "Address",
+                    value: "address",
+                },
+                {
+                    text: "Phone",
+                    value: "phone",
                 },
                 {
                     text: "Operation",
                     value: "operation",
                 },
             ],
-            postList: [],
-            showList: [],
+            userList: [],
+            showList: []
         };
     },
     computed: {
@@ -46,10 +46,10 @@ export default {
     },
     mounted() {
         this.$axios
-            .get("/posts")
+            .get("/users")
             .then((response) => {
-                this.postList = response.data;
-                this.showList = this.postList;
+                this.userList = response.data;
+                this.showList = this.userList;
             })
             .catch((err) => {
                 console.log(err);
@@ -60,17 +60,16 @@ export default {
          * This is to filter posts of datatable.
          * @returns void
          */
-        filterPosts() {
-            this.showList = this.postList.filter(post=>{
+        filterUser() {
+            this.userList = this.showList.filter(user=>{
                 return (
-                    post.title.toLowerCase().includes(this.keyword.toLowerCase()) || 
-                    post.description.toLowerCase().includes(this.keyword.toLowerCase()) 
+                    user.name.toLowerCase().includes(this.keyword.toLowerCase())
                 );
               });
-            console.log(this.showList);
+            console.log(this.userList);
         },
-        postDelete(id){
-            if(confirm("Are you sure you want to delete this selected post?")){
+        deleteUser(id){
+            if(confirm("Are you sure you want to delete this selected user?")){
                 this.$axios
                     .delete(`/posts/${id}/delete`)
                     .then(() => {
