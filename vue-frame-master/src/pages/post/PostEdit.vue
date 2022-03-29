@@ -39,7 +39,7 @@
                               <v-checkbox
                                 v-model="editPost.status"
                                 label="Active"
-                                value="editPost.status"
+                                :value="editPost.status"
                               ></v-checkbox>
                             </v-col>
                           </v-row>
@@ -96,6 +96,16 @@
                                       disabled="true"
                                       ></v-textarea>
                                   </v-col>
+                                  </v-row>
+                                  <v-row>
+                                    <v-col cols="3" class="mt-2">
+                                      <v-checkbox
+                                        v-model="editPost.status"
+                                        label="Active"
+                                        :value="editPost.status"
+                                        disabled
+                                      ></v-checkbox>
+                                    </v-col>
                                   </v-row>
                                   <v-btn
                                   class="mr-4"

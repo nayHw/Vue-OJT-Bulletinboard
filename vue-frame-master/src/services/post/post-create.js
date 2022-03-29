@@ -4,7 +4,6 @@ export default {
   data: () => ({
     dialog: false,
     valid: true,
-    message: "",
     titleRules: [
       v => !!v || "Titile is required",
       v => (v && v.length > 20) || "title must be greater than 20 characters"
@@ -18,7 +17,8 @@ export default {
       title: "",
       description: "",
       created_user_id: "",
-      created_user_name: ""
+      created_user_name: "",
+      status: true
     }
   }),
   mounted() {
@@ -43,7 +43,8 @@ export default {
           title: "",
           description: "",
           created_user_id: "",
-          created_user_name: ""
+          created_user_name: "",
+          status: ""
         };
         this.$router.push("/post/list");
       });

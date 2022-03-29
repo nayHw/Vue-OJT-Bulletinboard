@@ -4,7 +4,6 @@ export default {
   data: () => ({
     dialog: false,
     valid: true,
-    id: '',
     titleRules: [
       v => !!v || "Titile is required",
       v => (v && v.length > 20) || "title must be greater than 20 characters"
@@ -39,6 +38,7 @@ export default {
     clear() {
         this.editPost.title = "";
         this.editPost.description = "";
+        this.editPost.status = 0
     },
     dialogBox() {
         if(this.editPost.title.length > 20 && this.editPost.description.length > 50){  
