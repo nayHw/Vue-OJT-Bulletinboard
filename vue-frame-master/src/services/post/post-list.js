@@ -69,5 +69,17 @@ export default {
               });
             console.log(this.showList);
         },
+        postDelete(id){
+            if(confirm("Are you sure you want to delete this selected post?")){
+                this.$axios
+                    .delete(`/posts/${id}/delete`)
+                    .then(() => {
+                        this.$router.go(this.$router.currentRoute)
+                    })
+                    .catch((err) => {
+                        console.log(err.response);
+                    });
+            }
+        }
     },
 };
