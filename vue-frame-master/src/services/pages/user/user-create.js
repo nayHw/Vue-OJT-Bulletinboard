@@ -1,5 +1,4 @@
-
-// import axios from "axios";
+import axios from "axios";
 export default {
   data: () => ({
     dialog: false,
@@ -35,13 +34,15 @@ export default {
     newUser: {
       name: "",
       email: "",
+      password: "",
       phone: "",
       dob: "",
-      address: ""
+      address: "",
+      created_user_id:""
     }
   }),
   mounted() {
-    // this.newUser.created_user_id = this.$store.getters.userId;
+    this.newUser.created_user_id = this.$store.getters.userId;
     // this.newUser.created_user_name = this.$store.getters.userName;
   },
   methods: {
@@ -61,16 +62,12 @@ export default {
     addUser() {
       var input = this.newUser;
       console.log(input);
-      // axios.post("http://localhost:8000/api/users", input).then(() => {
-      //   this.newUser = {
-      //     name: "",
-      //     email: "",
-      //     phone: "",
-      //     dob: "",
-      //     address: ""
-      //   };
-      //   this.$router.push("/user/list");
-      // });
+      axios.post("http://localhost:8000/api/users/create").then((response) => {
+        response.data.name = this.newUser.name
+        response.data.address = this.newUser.address
+        response.data.email = this.newUser.email
+        response.data.password = this.newUser.password
+      });
     }
   }
 };

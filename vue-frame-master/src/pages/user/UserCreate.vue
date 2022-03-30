@@ -37,6 +37,17 @@
                                 <v-row>
                                     <v-col>
                                         <v-text-field
+                                        label="Password"
+                                        v-model="newUser.password"
+                                        required
+                                        placeholder="Enter password"
+                                        outlined
+                                        ></v-text-field>
+                                    </v-col>
+                                </v-row>
+                                <v-row>
+                                    <v-col>
+                                        <v-text-field
                                         label="Phone No"
                                         v-model="newUser.phone"
                                         :rules="phoneRules"
@@ -112,6 +123,16 @@
                                             <v-text-field
                                             label="Email"
                                             v-model="newUser.email"
+                                            :disabled="true"
+                                            outlined
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row>
+                                        <v-col>
+                                            <v-text-field
+                                            label="Password"
+                                            v-model="newUser.password"
                                             :disabled="true"
                                             outlined
                                             ></v-text-field>

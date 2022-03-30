@@ -50,12 +50,14 @@ export default {
         },
     },
     mounted() {
+        var i = 0;
         this.$axios
             .get("/users")
             .then((response) => {
-                this.userList = response.data;
-                this.userList[0].type = this.userType[this.userList[0].type];
+                this.userList = response.data
+                this.userList[i].type = this.userType[this.userList[i].type];
                 this.showList = this.userList;
+                
             })
             .catch((err) => {
                 console.log(err);
