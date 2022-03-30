@@ -38,7 +38,8 @@ export default {
          * @returns void
          */
         showProfile() {
-            // TODO: do something
+            var id = this.$store.getters.userId;
+            this.$router.push(`/user/${id}/detail`);
         },
     },
 };
