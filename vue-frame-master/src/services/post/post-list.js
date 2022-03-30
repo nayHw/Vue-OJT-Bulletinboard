@@ -82,7 +82,8 @@ export default {
             if(confirm("Are you sure you want to delete this selected post?")){
                 var input = {
                                 "deleted_user_id": this.$store.getters.userId,
-                                "deleted_at": new Date().toJSON().slice(0,10).replace(/-/g,'/')
+                                "deleted_at": Date.parse(new Date())
+                                // "deleted_at": new Date().toJSON().slice(0,10).replace(/-/g,'/')
                             }
                 this.$axios
                 .patch(`/posts/${id}/delete`,input)
