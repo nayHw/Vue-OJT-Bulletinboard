@@ -19,7 +19,7 @@ export default {
                 },
                 {
                     text: "Address",
-                    value: "address",
+                    value: "address"
                 },
                 {
                     text: "Phone No",
@@ -50,12 +50,12 @@ export default {
         },
     },
     mounted() {
-        var i = 0;
+        // var i = 0;
         this.$axios
             .get("/users")
             .then((response) => {
                 this.userList = response.data
-                this.userList[i].type = this.userType[this.userList[i].type];
+                // this.userList[i].type = this.userType[this.userList[i].type];
                 this.showList = this.userList;
                 
             })

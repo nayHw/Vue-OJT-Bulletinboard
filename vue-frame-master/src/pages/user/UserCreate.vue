@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-row no-gutters>
-            <v-col md="6" offset-md="3">
+            <v-col md="8" offset-md="2">
                 <v-card class="mt-8">
                     <v-card-title>
                         <v-row no-gutters>
@@ -11,7 +11,7 @@
                             <v-col cols="12">
                             <v-form ref="form" class="mt-10">
                                 <v-row>
-                                    <v-col>
+                                    <v-col cols="6">
                                         <v-text-field
                                         label="Name"
                                         v-model="newUser.name"
@@ -21,9 +21,7 @@
                                         outlined
                                         ></v-text-field>
                                     </v-col>
-                                </v-row>
-                                <v-row>
-                                    <v-col>
+                                    <v-col cols="6">
                                         <v-text-field
                                         label="Email"
                                         v-model="newUser.email"
@@ -35,18 +33,17 @@
                                     </v-col>
                                 </v-row>
                                 <v-row>
-                                    <v-col>
+                                    <v-col cols="6">
                                         <v-text-field
                                         label="Password"
                                         v-model="newUser.password"
+                                        :rules="passwordRules"
                                         required
                                         placeholder="Enter password"
                                         outlined
                                         ></v-text-field>
                                     </v-col>
-                                </v-row>
-                                <v-row>
-                                    <v-col>
+                                    <v-col cols="6">
                                         <v-text-field
                                         label="Phone No"
                                         v-model="newUser.phone"
@@ -58,7 +55,7 @@
                                     </v-col>
                                 </v-row>
                                 <v-row>
-                                    <v-col>
+                                    <v-col cols="6">
                                         <v-text-field
                                         label="Date of birth"
                                         v-model="newUser.dob"
@@ -67,6 +64,17 @@
                                         placeholder="dob"
                                         outlined
                                         ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="6">
+                                        <v-select
+                                        v-model="newUser.type"
+                                        :items="userType"
+                                        :rules="[v => !!v || 'Item is required']"
+                                        label="User Type"
+                                        required
+                                        placeholder="Choose Type"
+                                        outlined
+                                        ></v-select>
                                     </v-col>
                                 </v-row>
                                 <v-row>
@@ -98,8 +106,8 @@
         </v-row>
         
         <v-row no-gutters>
-            <v-col md="6" offset-md="3">
-                <v-dialog v-model="dialog" max-width="500">
+            <v-col md="8" offset-md="2">
+                <v-dialog v-model="dialog" max-width="700">
                     <v-card>
                         <v-card-title>
                             <v-row no-gutters>
@@ -109,7 +117,7 @@
                                 <v-col cols="12">
                                 <v-form ref="form" v-model="valid" class="mt-10" v-on:submit.prevent="addUser">
                                     <v-row>
-                                        <v-col>
+                                        <v-col cols="6">
                                             <v-text-field
                                             label="Name"
                                             v-model="newUser.name"
@@ -117,9 +125,7 @@
                                             outlined
                                             ></v-text-field>
                                         </v-col>
-                                    </v-row>
-                                    <v-row>
-                                        <v-col>
+                                        <v-col cols="6">
                                             <v-text-field
                                             label="Email"
                                             v-model="newUser.email"
@@ -129,7 +135,7 @@
                                         </v-col>
                                     </v-row>
                                     <v-row>
-                                        <v-col>
+                                        <v-col cols="6">
                                             <v-text-field
                                             label="Password"
                                             v-model="newUser.password"
@@ -137,9 +143,7 @@
                                             outlined
                                             ></v-text-field>
                                         </v-col>
-                                    </v-row>
-                                    <v-row>
-                                        <v-col>
+                                        <v-col cols="6">
                                             <v-text-field
                                             label="Phone No"
                                             v-model="newUser.phone"
@@ -149,13 +153,26 @@
                                         </v-col>
                                     </v-row>
                                     <v-row>
-                                        <v-col>
+                                        <v-col cols="6">
                                             <v-text-field
                                             label="Date of birth"
                                             v-model="newUser.dob"
                                             :disabled="true"
                                             outlined
                                             ></v-text-field>
+                                        </v-col>
+                                        <v-col cols="6">
+                                            <v-select
+                                            v-model="newUser.type"
+                                            :items="userType"
+                                            value="items.index"
+                                            :rules="[v => !!v || 'Item is required']"
+                                            label="User Type"
+                                            required
+                                            outlined
+                                            :disabled="true"
+                                            ></v-select>
+
                                         </v-col>
                                     </v-row>
                                     <v-row>
