@@ -54,10 +54,12 @@ export default {
         this.$axios
             .get("/users")
             .then((response) => {
-                this.userList = response.data
-                // this.userList[i].type = this.userType[this.userList[i].type];
-                this.showList = this.userList;
-                
+                this.userList = response.data;
+                this.showList =  this.userList.filter(user=>{
+                    return (
+                        user.deleted_user_id == null && user.deleted_at == null
+                    );
+                });
             })
             .catch((err) => {
                 console.log(err);
@@ -70,23 +72,28 @@ export default {
          */
         filterUser() {
             this.userList = this.showList.filter(user=>{
-                return (
-                    user.name.toLowerCase().includes(this.keyword.toLowerCase()) ||
-                    user.email.toLowerCase().includes(this.keyword.toLowerCase())
-                );
+                if(user.deleted_user_id == null && user.deleted_at == null){
+                    return (
+                        user.name.toLowerCase().includes(this.keyword.toLowerCase())
+                    );
+                }
               });
             console.log(this.userList);
         },
         deleteUser(id){
             if(confirm("Are you sure you want to delete this selected user?")){
+                var input = {
+                    "deleted_user_id": this.$store.getters.userId,
+                    "deleted_at": new Date().toJSON().slice(0,10).replace(/-/g,'/')
+                }
                 this.$axios
-                    .delete(`/users/${id}/delete`)
-                    .then(() => {
-                        this.$router.go(this.$router.currentRoute)
-                    })
-                    .catch((err) => {
-                        console.log(err.response);
-                    });
+                .patch(`/users/${id}/delete`,input)
+                .then(() => {
+                    this.$router.go(this.$router.currentRoute)
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
             }
         }
     },

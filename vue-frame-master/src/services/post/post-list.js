@@ -16,10 +16,12 @@ export default {
                 {
                     text: "Post Title",
                     value: "title",
+                    width: "20%"
                 },
                 {
                     text: "Post Desciption",
                     value: "description",
+                    width: "40%"
                 },
                 {
                     text: "Posted User",
@@ -49,11 +51,16 @@ export default {
             .get("/posts")
             .then((response) => {
                 this.postList = response.data;
-                this.showList = this.postList;
+                this.showList = this.postList.filter(post=>{
+                    return (
+                        post.deleted_user_id == null && post.deleted_at == null
+                    );
+                });
             })
             .catch((err) => {
                 console.log(err);
             });
+            console.log(this.showList);
     },
     methods: {
         /**
@@ -62,23 +69,30 @@ export default {
          */
         filterPosts() {
             this.showList = this.postList.filter(post=>{
-                return (
-                    post.title.toLowerCase().includes(this.keyword.toLowerCase()) || 
-                    post.description.toLowerCase().includes(this.keyword.toLowerCase()) 
-                );
-              });
+                    if(post.deleted_user_id == null && post.deleted_at == null){
+                        return (
+                            post.title.toLowerCase().includes(this.keyword.toLowerCase()) || 
+                            post.description.toLowerCase().includes(this.keyword.toLowerCase()) 
+                        );
+                    }
+            })
             console.log(this.showList);
         },
         postDelete(id){
             if(confirm("Are you sure you want to delete this selected post?")){
+                var input = {
+                                "deleted_user_id": this.$store.getters.userId,
+                                "deleted_at": Date.parse(new Date())
+                                // "deleted_at": new Date().toJSON().slice(0,10).replace(/-/g,'/')
+                            }
                 this.$axios
-                    .delete(`/posts/${id}/delete`)
-                    .then(() => {
-                        this.$router.go(this.$router.currentRoute)
-                    })
-                    .catch((err) => {
-                        console.log(err.response);
-                    });
+                .patch(`/posts/${id}/delete`,input)
+                .then(() => {
+                    this.$router.go(this.$router.currentRoute)
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
             }
         }
     },
