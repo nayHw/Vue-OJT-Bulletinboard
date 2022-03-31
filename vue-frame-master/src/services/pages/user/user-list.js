@@ -19,19 +19,24 @@ export default {
                 },
                 {
                     text: "Address",
-                    value: "address",
+                    value: "address"
                 },
                 {
-                    text: "Phone",
+                    text: "Phone No",
                     value: "phone",
+                },
+                {
+                    text: "User Type",
+                    value: "type",
                 },
                 {
                     text: "Operation",
                     value: "operation",
                 },
             ],
+            userType : ["Admin","User","Visitor"],
             userList: [],
-            showList: []
+            showList: [],
         };
     },
     computed: {
@@ -45,6 +50,7 @@ export default {
         },
     },
     mounted() {
+        // var i = 0;
         this.$axios
             .get("/users")
             .then((response) => {

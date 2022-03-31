@@ -67,11 +67,10 @@
                                         <v-text-field
                                         label="Title"
                                         v-model="newPost.title"
-                                        :rules="titleRules"
                                         required
                                         placeholder="Enter post title"
                                         outlined
-                                        disabled="true"
+                                        :disabled="true"
                                         ></v-text-field>
                                     </v-col>
                                     </v-row>
@@ -80,11 +79,10 @@
                                         <v-textarea
                                         label="Description"
                                         v-model="newPost.description"
-                                        :rules="descriptionRules"
                                         required
                                         placeholder="Enter post description"
                                         outlined
-                                        disabled="true"
+                                        :disabled="true"
                                         ></v-textarea>
                                     </v-col>
                                     </v-row>

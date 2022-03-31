@@ -76,11 +76,10 @@
                                       <v-text-field
                                       label="Title"
                                       v-model="editPost.title"
-                                      :rules="titleRules"
                                       required
                                       placeholder="Enter post title"
                                       outlined
-                                      disabled="true"
+                                      :disabled="true"
                                       ></v-text-field>
                                   </v-col>
                                   </v-row>
@@ -89,11 +88,10 @@
                                       <v-textarea
                                       label="Description"
                                       v-model="editPost.description"
-                                      :rules="descriptionRules"
                                       required
                                       placeholder="Enter post description"
                                       outlined
-                                      disabled="true"
+                                      :disabled="true"
                                       ></v-textarea>
                                   </v-col>
                                   </v-row>
@@ -103,7 +101,7 @@
                                         v-model="editPost.status"
                                         label="Active"
                                         :value="editPost.status"
-                                        disabled
+                                        :disabled="true"
                                       ></v-checkbox>
                                     </v-col>
                                   </v-row>

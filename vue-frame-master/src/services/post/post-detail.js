@@ -12,7 +12,6 @@ export default {
             .get(`/posts/${this.$route.params.id}`)
             .then(response => {
                 this.showList = response.data;
-                console.log(this.showList)
             })
             .catch(err => {
                 console.log(err);

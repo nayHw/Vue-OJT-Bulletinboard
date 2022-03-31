@@ -28,7 +28,6 @@ export default {
     .then((response) => {
         this.postList = response.data;
         this.editPost = this.postList;
-        console.log(this.editPost);
     })
     .catch((err) => {
         console.log(err);

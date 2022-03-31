@@ -11,10 +11,10 @@
                     <div class="route-links" v-if="isLoggedIn">
                         <v-list color="primary">
                             <v-list-item @click="postList()" class="float-left">
-                                <v-list-item-title>Post</v-list-item-title>
+                                <v-list-item-title>Posts</v-list-item-title>
                             </v-list-item>
                             <v-list-item @click="userList()">
-                                <v-list-item-title>User</v-list-item-title>
+                                <v-list-item-title>Users</v-list-item-title>
                             </v-list-item>
                         </v-list>
                     </div>
