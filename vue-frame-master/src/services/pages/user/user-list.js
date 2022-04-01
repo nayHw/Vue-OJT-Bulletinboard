@@ -12,14 +12,17 @@ export default {
                 {
                     text: "Name",
                     value: "name",
+                    width: "20%"
                 },
                 {
                     text: "Email",
                     value: "email",
+                    width: "20%"
                 },
                 {
                     text: "Address",
-                    value: "address"
+                    value: "address",
+                    width: "20%"
                 },
                 {
                     text: "Phone No",

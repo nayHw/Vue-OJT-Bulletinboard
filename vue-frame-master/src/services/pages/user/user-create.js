@@ -3,7 +3,8 @@ export default {
   data: () => ({
     dialog: false,
     valid: true,
-    // disabled:true,
+    date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    menu2: false,
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length > 5) || "name must be greater than 5 characters"
@@ -41,10 +42,12 @@ export default {
       email: "",
       password: "",
       phone: "",
-      dob: "",
+      dob: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       address: "",
       type:"",
-      created_user_id:""
+      created_user_id:"",
+      profile: "",
+      image: ""
     },
     userType : ["Admin","User","Visitor"],
   }),
@@ -60,16 +63,27 @@ export default {
       this.newUser.phone="";
       this.newUser.dob="";
       this.newUser.address="";
+      this.newUser.profile=""
     },
     dialogBox() {
       this.dialog = true;
+      let base64String = "";
+      var file = this.newUser.profile;
+      var reader = new FileReader();
+      reader.onload = function () {
+        base64String = reader.result.replace("data:", "")
+              .replace(/^.+,/, "");
+        document.getElementById("image").setAttribute("src", `data:image/jpeg;base64,${base64String}`);   
+        console.log(base64String)
+      }
+      reader.readAsDataURL(file);
     },
     Cancel(){
         this.dialog = false;
     },
     addUser() {
+      this.newUser.profile =  document.getElementById("image").getAttribute("src");
       var input = this.newUser;
-      console.log(input);
       axios.post("http://localhost:8000/register",input).then(() => {
         this.newUser = {
           name: "",
@@ -79,9 +93,12 @@ export default {
           dob: "",
           address: "",
           type:"",
-          created_user_id:""
+          created_user_id:"",
+          profile: ""
         }
-        this.$router.push("/user/list");
+        setTimeout(()=>{
+          this.$router.push("/user/list");
+        },2000);
       });
     }
   }

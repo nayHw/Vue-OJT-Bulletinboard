@@ -55,15 +55,31 @@
                                     </v-col>
                                 </v-row>
                                 <v-row>
-                                    <v-col cols="6">
-                                        <v-text-field
-                                        label="Date of birth"
-                                        v-model="newUser.dob"
-                                        :rules="dobRules"
-                                        required
-                                        placeholder="dob"
-                                        outlined
-                                        ></v-text-field>
+                                    <v-col cols="6"> 
+                                        <v-menu
+                                            v-model="menu2"
+                                            :close-on-content-click="false"
+                                            :nudge-right="40"
+                                            transition="scale-transition"
+                                            offset-y
+                                            min-width="auto"
+                                        >
+                                            <template v-slot:activator="{ on, attrs }">
+                                            <v-text-field
+                                                v-model="newUser.dob"
+                                                label="Date of birth"
+                                                readonly
+                                                v-bind="attrs"
+                                                v-on="on"
+                                                placeholder="1999-04-20"
+                                                outlined
+                                            ></v-text-field>
+                                            </template>
+                                            <v-date-picker
+                                            v-model="newUser.dob"
+                                            @input="menu2 = false"
+                                            ></v-date-picker>
+                                        </v-menu>
                                     </v-col>
                                     <v-col cols="6">
                                         <v-select
@@ -78,7 +94,7 @@
                                     </v-col>
                                 </v-row>
                                 <v-row>
-                                    <v-col>
+                                    <v-col cols="6">
                                         <v-textarea
                                         label="Address"
                                         v-model="newUser.address"
@@ -87,6 +103,16 @@
                                         placeholder="Enter Address"
                                         outlined
                                         ></v-textarea>
+                                    </v-col>
+                                    <v-col cols="6">
+                                         <v-file-input
+                                            label="Profile"
+                                            prepend-icon=""
+                                            outlined
+                                            placeholder="Choose Profile Image"
+                                            v-model="newUser.profile"
+                                            dense
+                                        ></v-file-input>
                                     </v-col>
                                 </v-row>
                                 <v-btn
@@ -176,13 +202,16 @@
                                         </v-col>
                                     </v-row>
                                     <v-row>
-                                        <v-col>
+                                        <v-col cols="6">
                                             <v-textarea
                                             label="Address"
                                             v-model="newUser.address"
                                             :disabled="true"
                                             outlined
                                             ></v-textarea>
+                                        </v-col>
+                                        <v-col cols="6">
+                                            <img id="image">
                                         </v-col>
                                     </v-row>
                                     <v-btn
@@ -201,7 +230,6 @@
                 </v-dialog>
             </v-col>
         </v-row>
-
     </div>
 </template>
 
