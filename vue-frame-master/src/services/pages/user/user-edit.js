@@ -3,7 +3,6 @@ export default {
   data: () => ({
     dialog: false,
     valid: true,
-    disabled: true,
     date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
     menu2: false,
     nameRules: [
@@ -47,8 +46,7 @@ export default {
       address: "",
       type:"",
       created_user_id:"",
-      profile: "",
-      image: ""
+      profile: ""
     },
     userType : ["Admin","User","Visitor"],
   }),
@@ -58,8 +56,14 @@ export default {
     }
   },
   mounted() {
-    this.newUser.created_user_id = this.$store.getters.userId;
-    // this.newUser.created_user_name = this.$store.getters.userName;
+    this.$axios
+    .get(`/users/${this.$route.params.id}/show`)
+    .then((response) => {
+        this.newUser = response.data;
+    })
+    .catch((err) => {
+        console.log(err);
+    });
   },
   methods: {
     clear() {
@@ -75,14 +79,19 @@ export default {
       this.dialog = true;
       let base64String = "";
       var file = this.newUser.profile;
-      var reader = new FileReader();
-      reader.onload = function () {
-        base64String = reader.result.replace("data:", "")
-              .replace(/^.+,/, "");
-        document.getElementById("image").setAttribute("src", `data:image/jpeg;base64,${base64String}`);   
-        console.log(base64String)
-      }
-      reader.readAsDataURL(file);
+        if(file.name != ""){
+            var reader = new FileReader();
+            reader.onload = function () {
+                base64String = reader.result.replace("data:", "")
+                    .replace(/^.+,/, "");
+                document.getElementById("image").setAttribute("src", `data:image/jpeg;base64,${base64String}`);
+                console.log(base64String)
+            }
+            reader.readAsDataURL(file);
+        }else{
+            let src =  document.getElementById("profile-img").getAttribute("src");
+            document.getElementById("image").setAttribute("src", `${src}`)
+        } 
     },
     Cancel(){
         this.dialog = false;
@@ -90,7 +99,7 @@ export default {
     addUser() {
       this.newUser.profile =  document.getElementById("image").getAttribute("src");
       var input = this.newUser;
-      axios.post("http://localhost:8000/register",input).then(() => {
+      axios.patch(`/users/${this.$route.params.id}/edit`,input).then(() => {
         this.newUser = {
           name: "",
           email: "",

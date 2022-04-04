@@ -4,7 +4,8 @@ import axios from "axios";
 export default {
     data() {
         return {
-            showList: []
+            showList: [],
+            prevRoute: null
         };
     },
     created() {
@@ -18,8 +19,8 @@ export default {
             });
     },
     methods: {
-        back(){
-            this.$router.push('/post/list');
+        back(){  
+            this.$router.go(-1)
         }
     }
 };

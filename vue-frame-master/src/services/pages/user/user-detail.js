@@ -2,6 +2,8 @@ import axios from "axios";
 export default {
   data: () => ({
     name: '',
+    src:'',
+    id:'',
     messages: [
       {
         title: "Eamil",
@@ -38,6 +40,8 @@ export default {
         .then(response => {
             this.showList = response.data;
             this.name = this.showList.name;
+            this.src = this.showList.profile;
+            this.id = this.showList.id;
             this.messages[0].message = this.showList.email;
             this.messages[1].message = this.showList.phone;
             this.messages[2].message = new Date(this.showList.dob).toDateString().replace(/ /g, ', ')

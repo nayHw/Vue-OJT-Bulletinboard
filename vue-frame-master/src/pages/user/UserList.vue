@@ -27,7 +27,11 @@
             <template v-slot:[`item.operation`] = "{ item }">
                 <v-row>
                     <div class="operation-btn">
-                        <v-btn color="primary" class="post-list-btn">Edit</v-btn>
+                        <v-btn color="primary" class="post-list-btn">
+                            <router-link :to="`/user/${item.id}/edit`" class="white--text text-decoration-none">
+                                Edit
+                            </router-link>
+                        </v-btn>
                     </div>
                     <div class="operation-btn">
                         <v-btn color="error" class="post-list-btn" @click="deleteUser(item.id)">Delete</v-btn>

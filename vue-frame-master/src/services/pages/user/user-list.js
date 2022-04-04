@@ -12,7 +12,7 @@ export default {
                 {
                     text: "Name",
                     value: "name",
-                    width: "20%"
+                    width: "10%"
                 },
                 {
                     text: "Email",
@@ -57,8 +57,8 @@ export default {
         this.$axios
             .get("/users")
             .then((response) => {
-                this.userList = response.data;
-                this.showList =  this.userList.filter(user=>{
+                this.showList = response.data;
+                this.userList =  this.showList.filter(user=>{
                     return (
                         user.deleted_user_id == null && user.deleted_at == null
                     );

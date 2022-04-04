@@ -6,7 +6,7 @@
                     <v-card-title>
                         <v-row no-gutters>
                             <v-col cols="12">
-                            <v-toolbar color="blue darken-1" dark>User Create</v-toolbar>
+                            <v-toolbar color="blue darken-1" dark>User Edit</v-toolbar>
                             </v-col>
                             <v-col cols="12">
                             <v-form ref="form" class="mt-10" autocomplete="off">
@@ -113,12 +113,14 @@
                                             v-model="newUser.profile"
                                             dense
                                         ></v-file-input>
+                                        <v-col cols="6">
+                                            <img :src="newUser.profile" id="profile-img">
+                                        </v-col>
                                     </v-col>
                                 </v-row>
                                 <v-btn
                                 class="mr-4"
                                 color="primary"
-                                disabled="disabled"
                                 @click="dialogBox"
                                 >Add</v-btn>
                                 <v-btn
@@ -234,5 +236,12 @@
     </div>
 </template>
 
-<script src="../../services/pages/user/user-create.js">
+<script src="../../services/pages/user/user-edit.js">
 </script>
+
+<style>
+#profile-img{
+    width: 100px;
+    height: 100px;
+}
+</style>

@@ -14,7 +14,7 @@
             <v-avatar size="56">
               <img
                 alt="user"
-                src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg"
+                :src="src"
               />
             </v-avatar>
             <p class="ml-3">{{name}}</p>
@@ -38,7 +38,11 @@
               </div>
             </v-timeline-item>
           </v-timeline>
-          <v-btn color="primary" class="float-right mb-5">Edit</v-btn>
+          <v-btn color="primary" class="float-right mb-5">
+            <router-link :to="`/user/${id}/edit`" class="white--text text-decoration-none">
+              Edit
+            </router-link>
+          </v-btn>
         </v-card-text>
       </v-card>
     </v-row>

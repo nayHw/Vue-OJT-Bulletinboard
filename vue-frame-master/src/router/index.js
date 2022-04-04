@@ -5,12 +5,13 @@ import Login from "../pages/user/Login";
 import UserList from "../pages/user/UserList";
 import UserCreate from "../pages/user/UserCreate";
 import UserDetail from "../pages/user/UserDetail";
+import UserEdit from "../pages/user/UserEdit"
 //post
 import PostList from "../pages/post/PostList";
 import PostDetail from "../pages/post/PostDetail";
 import PostCreate from "../pages/post/PostCreate";
 import PostEdit from "../pages/post/PostEdit";
-
+import VisitorView from "../pages/post/VisitorView"
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -25,6 +26,11 @@ const routes = [
         path:"/user/list",
         name: "user-list",
         component: UserList
+    },
+    {
+        path:"/user/:id/edit",
+        name: "user-edit",
+        component: UserEdit
     },
     {
         path:"/user/create",
@@ -56,8 +62,13 @@ const routes = [
         component: PostEdit
     },
     {
+        path: "/",
+        name: "visitor-view",
+        component: VisitorView
+    },
+    {
         path: "/*",
-        redirect: "/post/list",
+        redirect: "/",
     },
 ];
 
