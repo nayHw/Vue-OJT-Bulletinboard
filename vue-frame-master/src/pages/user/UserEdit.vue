@@ -35,16 +35,6 @@
                                 <v-row>
                                     <v-col cols="6">
                                         <v-text-field
-                                        label="Password"
-                                        v-model="newUser.password"
-                                        :rules="passwordRules"
-                                        required
-                                        placeholder="Enter password"
-                                        outlined
-                                        ></v-text-field>
-                                    </v-col>
-                                    <v-col cols="6">
-                                        <v-text-field
                                         label="Phone No"
                                         v-model="newUser.phone"
                                         :rules="phoneRules"
@@ -53,8 +43,6 @@
                                         outlined
                                         ></v-text-field>
                                     </v-col>
-                                </v-row>
-                                <v-row>
                                     <v-col cols="6"> 
                                         <v-menu
                                             v-model="menu2"
@@ -81,6 +69,8 @@
                                             ></v-date-picker>
                                         </v-menu>
                                     </v-col>
+                                </v-row>
+                                <v-row>
                                     <v-col cols="6">
                                         <v-select
                                         v-model="newUser.type"
@@ -167,22 +157,12 @@
                                     <v-row>
                                         <v-col cols="6">
                                             <v-text-field
-                                            label="Password"
-                                            v-model="newUser.password"
-                                            :disabled="true"
-                                            outlined
-                                            ></v-text-field>
-                                        </v-col>
-                                        <v-col cols="6">
-                                            <v-text-field
                                             label="Phone No"
                                             v-model="newUser.phone"
                                             :disabled="true"
                                             outlined
                                             ></v-text-field>
                                         </v-col>
-                                    </v-row>
-                                    <v-row>
                                         <v-col cols="6">
                                             <v-text-field
                                             label="Date of birth"
@@ -191,6 +171,8 @@
                                             outlined
                                             ></v-text-field>
                                         </v-col>
+                                    </v-row>
+                                    <v-row>
                                         <v-col cols="6">
                                             <v-select
                                             v-model="newUser.type"

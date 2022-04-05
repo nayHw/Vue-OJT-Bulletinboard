@@ -40,7 +40,6 @@ export default {
     newUser: {
       name: "",
       email: "",
-      password: "",
       phone: "",
       dob: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       address: "",
@@ -60,6 +59,8 @@ export default {
     .get(`/users/${this.$route.params.id}/show`)
     .then((response) => {
         this.newUser = response.data;
+        var date = new Date(this.newUser.dob);
+        this.newUser.dob = date.toISOString().slice(0,10)
     })
     .catch((err) => {
         console.log(err);
@@ -69,7 +70,6 @@ export default {
     clear() {
       this.newUser.name="";
       this.newUser.email="";
-      this.newUser.password="";
       this.newUser.phone="";
       this.newUser.dob="";
       this.newUser.address="";
@@ -79,7 +79,7 @@ export default {
       this.dialog = true;
       let base64String = "";
       var file = this.newUser.profile;
-        if(file.name != ""){
+        if(file.name){
             var reader = new FileReader();
             reader.onload = function () {
                 base64String = reader.result.replace("data:", "")
@@ -89,8 +89,9 @@ export default {
             }
             reader.readAsDataURL(file);
         }else{
-            let src =  document.getElementById("profile-img").getAttribute("src");
-            document.getElementById("image").setAttribute("src", `${src}`)
+            var src =  document.getElementById("profile-img").getAttribute("src");
+            document.getElementById("image").setAttribute("src", `${src}`);
+                
         } 
     },
     Cancel(){
@@ -103,7 +104,6 @@ export default {
         this.newUser = {
           name: "",
           email: "",
-          password: "",
           phone: "",
           dob: "",
           address: "",

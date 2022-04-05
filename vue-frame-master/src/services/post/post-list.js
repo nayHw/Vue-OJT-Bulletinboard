@@ -1,12 +1,16 @@
 import { mapGetters } from "vuex";
+import axios from "axios";
 export default {
     data() {
         return {
             postInfo: null,
             dialogTitle: "",
             dialog: false,
+            upload_dialog:false,
+            file: '',
             isDeleteDialog: false,
             keyword: '',
+            valid: true,
             headerList: [
                 {
                     text: "ID",
@@ -34,7 +38,7 @@ export default {
                 },
             ],
             postList: [],
-            showList: [],
+            showList: []
         };
     },
     computed: {
@@ -77,7 +81,6 @@ export default {
                         );
                     }
             })
-            console.log(this.showList);
         },
         postDelete(id){
             if(confirm("Are you sure you want to delete this selected post?")){
@@ -95,6 +98,56 @@ export default {
                     console.log(err);
                 });
             }
+        },
+        uploadPost(){
+            this.upload_dialog = true
+        },
+        Cancel(){
+            this.upload_dialog = false
+        },
+        addPost(){
+            let csv_file = this.file;
+            let reader = new FileReader();
+            let created_user_id = this.$store.getters.userId;
+            let created_user_name = this.$store.getters.userName;
+            reader.onload = function(e){
+                const text = e.target.result
+                const result = csvToArray(text)
+                
+                for(var i=0; i< result.length;i++){
+                    axios.post("http://localhost:8000/api/posts/create",
+                    {
+                        "title": result[i].title,
+                        "description": result[i].description,
+                        "status": true,
+                        "created_user_id": created_user_id,
+                        "created_user_name": created_user_name
+                    }).then(() => {
+                        console.log('success')
+                    })
+                }
+            }
+            reader.readAsText(csv_file)
+           
+            function csvToArray(str, delimeter = ","){
+                const headers = str.slice(0,str.indexOf("\n")).split(delimeter)
+                
+                const rows = str.slice(str.indexOf("\n") + 1).split("\n")
+                const arr = rows.map(function(row){
+                    const values = row.split(delimeter)
+                    const el = headers.reduce(function(object,header,index){
+                        object[header] = values[index]
+                        return object
+                    },{})
+                    return el
+                })
+                return arr
+            }
+            
+            this.upload_dialog= false
+            this.$router.go(this.$router.currentRoute)
+           
         }
+
     },
 };

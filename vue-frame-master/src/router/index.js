@@ -6,6 +6,7 @@ import UserList from "../pages/user/UserList";
 import UserCreate from "../pages/user/UserCreate";
 import UserDetail from "../pages/user/UserDetail";
 import UserEdit from "../pages/user/UserEdit"
+import PasswordReset from "../pages/user/PasswordReset"
 //post
 import PostList from "../pages/post/PostList";
 import PostDetail from "../pages/post/PostDetail";
@@ -21,6 +22,11 @@ const routes = [
         path: "/login",
         name: "login",
         component: Login,
+    },
+    {
+        path: "/user/:id/reset",
+        name: "password-reset",
+        component: PasswordReset,
     },
     {
         path:"/user/list",

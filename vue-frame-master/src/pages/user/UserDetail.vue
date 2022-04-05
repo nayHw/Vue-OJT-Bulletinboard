@@ -44,9 +44,14 @@
               </div>
             </v-timeline-item>
           </v-timeline>
-          <v-btn color="primary" class="float-right mb-5">
+          <v-btn color="primary" class="float-left mb-5 ml-5">
             <router-link :to="`/user/${id}/edit`" class="white--text text-decoration-none">
               Edit
+            </router-link>
+          </v-btn>
+          <v-btn color="primary" class="float-right mb-5 ml-5">
+            <router-link :to="`/user/${id}/reset`" class="white--text text-decoration-none">
+              Change Password
             </router-link>
           </v-btn>
         </v-card-text>
