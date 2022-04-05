@@ -12,7 +12,7 @@ export default {
     addressRules: [
       v => !!v || "Address is required",
       v =>
-        (v && v.length > 50) || "address must be greater than 50 characters"
+        (v && v.length > 30) || "address must be greater than 50 characters"
     ],
     emailRules: [
       v => !!v || 'E-mail is required',

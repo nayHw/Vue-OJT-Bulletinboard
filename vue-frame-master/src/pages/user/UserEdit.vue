@@ -9,7 +9,7 @@
                             <v-toolbar color="blue darken-1" dark>User Edit</v-toolbar>
                             </v-col>
                             <v-col cols="12">
-                            <v-form ref="form" class="mt-10" autocomplete="off">
+                            <v-form ref="form" v-model="valid" class="mt-10" autocomplete="off">
                                 <v-row>
                                     <v-col cols="6">
                                         <v-text-field
@@ -121,6 +121,7 @@
                                 <v-btn
                                 class="mr-4"
                                 color="primary"
+                                :disabled="!valid"
                                 @click="dialogBox"
                                 >Add</v-btn>
                                 <v-btn

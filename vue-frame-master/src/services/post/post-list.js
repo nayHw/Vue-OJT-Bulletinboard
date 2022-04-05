@@ -16,16 +16,17 @@ export default {
                 {
                     text: "Post Title",
                     value: "title",
-                    width: "20%"
+                    width: "15%"
                 },
                 {
                     text: "Post Desciption",
                     value: "description",
-                    width: "40%"
+                    width: "20%"
                 },
                 {
                     text: "Posted User",
                     value: "created_user_name",
+                    width: "10%"
                 },
                 {
                     text: "Operation",

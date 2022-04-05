@@ -45,7 +45,7 @@ export default {
             this.messages[0].message = this.showList.email;
             this.messages[1].message = this.showList.phone;
             this.messages[2].message = new Date(this.showList.dob).toDateString().replace(/ /g, ', ')
-            this.messages[3].message = this.userType[this.showList.type];
+            this.messages[3].message = this.showList.type;
             this.messages[4].message = this.showList.address;
             console.log(this.showList)
         })

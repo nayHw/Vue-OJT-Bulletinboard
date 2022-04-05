@@ -3,7 +3,6 @@ export default {
   data: () => ({
     dialog: false,
     valid: true,
-    disabled: true,
     date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
     menu2: false,
     nameRules: [
@@ -36,7 +35,7 @@ export default {
     typeRules: [
       v => !!v || "Address is required",
       v =>
-        (v && v.length > 50) || "address must be greater than 50 characters"
+        (v && v.length > 30) || "address must be greater than 50 characters"
     ],
     newUser: {
       name: "",
@@ -72,6 +71,7 @@ export default {
       this.newUser.profile=""
     },
     dialogBox() {
+      
       this.dialog = true;
       let base64String = "";
       var file = this.newUser.profile;

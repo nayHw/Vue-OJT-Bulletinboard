@@ -1,6 +1,5 @@
 import { mapGetters } from "vuex";
 import constants from "../../constants";
-
 export default {
     data() {
         return {

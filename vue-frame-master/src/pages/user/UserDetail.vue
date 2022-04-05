@@ -12,9 +12,15 @@
 
           <v-card-title class="white--text mt-8">
             <v-avatar size="56">
-              <img
+              <img 
+                v-if="src"
                 alt="user"
                 :src="src"
+              />
+              <img
+                v-if="!src"
+                alt="user 01"
+                src="../../assets/logo.png"
               />
             </v-avatar>
             <p class="ml-3">{{name}}</p>

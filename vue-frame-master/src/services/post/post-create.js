@@ -31,7 +31,9 @@ export default {
         this.newPost.description = "";
     },
     dialogBox() {
-      this.dialog = true;
+        if(this.newPost.title.length > 20 && this.newPost.description.length > 50){  
+          this.dialog = true;
+        }
     },
     Cancel(){
         this.dialog = false;

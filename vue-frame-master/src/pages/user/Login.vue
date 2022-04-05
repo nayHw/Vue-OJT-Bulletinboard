@@ -5,7 +5,7 @@
     </v-card-title>
     <v-form ref="form" v-model="valid" @submit.prevent="login">
         <v-card-text>
-            <div class="login-error">{{error}}</div>
+            <div class="login-error" v-if="error">{{error}}</div>
             <div class="login-input">
                 <v-text-field v-model="email" type="text" label="Email" :rules="emailRules" hide-details="auto"></v-text-field>
             </div>
