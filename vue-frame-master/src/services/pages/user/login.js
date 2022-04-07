@@ -23,7 +23,7 @@ export default {
             this.$store
                 .dispatch("login", {
                     email: this.email,
-                    password: this.password
+                    password: this.password,
                 })
                 .then(() => {
                     this.error = "";

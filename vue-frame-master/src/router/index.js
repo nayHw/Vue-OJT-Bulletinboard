@@ -31,7 +31,14 @@ const routes = [
     {
         path:"/user/list",
         name: "user-list",
-        component: UserList
+        component: UserList,
+        beforeEnter: (to, from, next) => {
+            const type = store.getters.userType
+            if(type == 'Admin'){
+                return next();
+            }
+            next('/post/list');
+        }
     },
     {
         path:"/user/:id/edit",
@@ -52,6 +59,13 @@ const routes = [
         path: "/post/list",
         name: "post-list",
         component: PostList,
+        beforeEnter: (to, from, next) => {
+            const type = store.getters.userType
+            if(type == 'Admin' || type == 'User'){
+                return next();
+            }
+            next('/login');
+        }
     },
     {
         path: "/post/:id/detail",
@@ -60,7 +74,15 @@ const routes = [
     },
     {   path: "/post/create",
         name: "post-create",
-        component: PostCreate
+        component: PostCreate,
+        beforeEnter: (to, from, next) => {
+            const type = store.getters.userType
+            if(type == 'Admin' || type == 'User'){
+                return next();
+            }
+            next('/login');
+        }
+
     },
     {
         path: "/post/:id/edit",

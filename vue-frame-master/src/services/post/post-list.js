@@ -1,5 +1,8 @@
 import { mapGetters } from "vuex";
 import axios from "axios";
+import JsonExcel from "vue-json-excel";
+
+
 export default {
     data() {
         return {
@@ -11,6 +14,7 @@ export default {
             isDeleteDialog: false,
             keyword: '',
             valid: true,
+            user_type:'',
             headerList: [
                 {
                     text: "ID",
@@ -41,6 +45,9 @@ export default {
             showList: []
         };
     },
+    component:{
+        "downloadExcel" : JsonExcel
+    },
     computed: {
         ...mapGetters(["isLoggedIn"]),
         headers() {
@@ -52,6 +59,8 @@ export default {
         },
     },
     mounted() {
+        
+        this.user_type = this.$store.getters.userType;
         this.$axios
             .get("/posts")
             .then((response) => {
@@ -113,8 +122,7 @@ export default {
             reader.onload = function(e){
                 const text = e.target.result
                 const result = csvToArray(text)
-                
-                for(var i=0; i< result.length;i++){
+                for(var i=0; i< result.length-1;i++){
                     axios.post("http://localhost:8000/api/posts/create",
                     {
                         "title": result[i].title,
