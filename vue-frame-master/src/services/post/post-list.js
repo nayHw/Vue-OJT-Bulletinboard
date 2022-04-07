@@ -158,34 +158,51 @@ export default {
            
         },
         expotPostList(arr){
-            console.log(arr);
             if (!arr.length) {
                 return;
-            }
-
-            var csvContent = "data:text/csv;charset=utf-8,";
-            // headers
-            csvContent += objectToCSVRow(Object.keys(arr[0]));
-            arr.forEach(function(item){
-                csvContent += objectToCSVRow(item);
-            }); 
-            var encodedUri = encodeURI(csvContent);
-            var link = document.getElementById("export");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "postlist.csv");
-
-            function objectToCSVRow(dataObject) {
-                
-                var dataArray = new Array;
-                for (var o in dataObject) {
-                    var innerValue = dataObject[o]===null?'':dataObject[o].toString();
-                    var result = innerValue.replace(/"/g, '""');
-                    result = '/' + result + '/';
-                    dataArray.push(result);
+            }   
+            JSONToCSVConvertor(arr, "PostList", true);
+            function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
+                //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
+                var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+                var CSV = 'sep=,' + '\r\n\n';
+                //This condition will generate the Label/Header
+                if (ShowLabel) {
+                    var row = "";
+                    //This loop will extract the label from 1st index of on array
+                    for (var index in arrData[0]) {
+                        //Now convert each value to string and comma-seprated
+                        row += index + ',';
+                    }
+                    row = row.slice(0, -1);
+                    //append Label row with line break
+                    CSV += row + '\r\n';
                 }
-                return dataArray.join(' ') + '\r\n';
-            }
+                //1st loop is to extract each row
+                for (var i = 0; i < arrData.length; i++) {
+                    row = "";
+                    //2nd loop will extract each column and convert it in string comma-seprated
+                    for (var ind in arrData[i]) {
+                        row += '"' + arrData[i][ind] + '",';
+                    }
+                    row.slice(0, row.length - 1);
+                    //add a line break after each row
+                    CSV += row + '\r\n';
+                }
+                if (CSV == '') {        
+                    alert("Invalid data");
+                    return;
+                }   
 
+                ReportTitle.replace(/ /g,"_");   
+
+                //Initialize file format you want csv or xls
+                var urencodedUri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+
+                var link = document.getElementById("export");
+                link.setAttribute("href", urencodedUri);
+                link.setAttribute("download", ReportTitle+".csv");
+            }
         }
     },
 };
