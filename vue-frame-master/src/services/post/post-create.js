@@ -18,6 +18,8 @@ export default {
       description: "",
       created_user_id: "",
       created_user_name: "",
+      deleted_user_id: null,
+      deleted_at: null,
       status: true
     }
   }),
@@ -46,6 +48,8 @@ export default {
           description: "",
           created_user_id: "",
           created_user_name: "",
+          deleted_user_id: "",
+          deleted_at: "",
           status: ""
         };
         this.$router.push("/post/list");

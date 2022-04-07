@@ -10,16 +10,15 @@
                     <v-btn class="post-list-btn mr-4" color="primary" type="submit">Filter</v-btn>
                 </v-form>
                 <v-btn class="post-list-btn mr-4" color="primary">    
-                    <router-link :to="{ name: 'post-create', params: { userType: `${user_type}` }}" class="white--text text-decoration-none">
+                    <router-link to="/post/create" class="white--text text-decoration-none">
                         Create
                     </router-link>
                 </v-btn>    
                 <v-btn class="post-list-btn mr-4" color="primary" @click="uploadPost">
                     Upload
                 </v-btn>
-                <v-btn  class="post-list-btn mr-4" color="primary">
-                    <downldownloadExcel :data="showList" name="filename.xls">Download</downldownloadExcel>
-                </v-btn>
+                <a id="export" class="post-list-btn mr-4" color="primary" @click="expotPostList(showList)" >Download</a>
+               
             </v-row>
         </div>
     </v-card-title>

@@ -13,9 +13,7 @@
                     <router-link to="/user/create" class="white--text text-decoration-none">
                         Create
                     </router-link>
-                </v-btn>    
-                <v-btn class="post-list-btn mr-4" color="primary">Upload</v-btn>
-                <v-btn class="post-list-btn mr-4" color="primary">Download</v-btn>
+                </v-btn>
             </v-row>
         </div>
     </v-card-title>

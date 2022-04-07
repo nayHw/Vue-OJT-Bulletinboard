@@ -67,14 +67,13 @@ export default {
                 this.postList = response.data;
                 this.showList = this.postList.filter(post=>{
                     return (
-                        post.deleted_user_id == null && post.deleted_at == null
+                        post.deleted_user_id == null && post.deleted_at == null && post.status == true
                     );
                 });
             })
             .catch((err) => {
                 console.log(err);
             });
-            console.log(this.showList);
     },
     methods: {
         /**
@@ -129,7 +128,9 @@ export default {
                         "description": result[i].description,
                         "status": true,
                         "created_user_id": created_user_id,
-                        "created_user_name": created_user_name
+                        "created_user_name": created_user_name,
+                        "deleated_user_id": null,
+                        "deleated_at": null
                     }).then(() => {
                         console.log('success')
                     })
@@ -137,12 +138,12 @@ export default {
             }
             reader.readAsText(csv_file)
            
-            function csvToArray(str, delimeter = ","){
-                const headers = str.slice(0,str.indexOf("\n")).split(delimeter)
+            function csvToArray(str){
+                const headers = str.slice(0,str.indexOf("\n")).split(/[,\r]+/)
                 
                 const rows = str.slice(str.indexOf("\n") + 1).split("\n")
                 const arr = rows.map(function(row){
-                    const values = row.split(delimeter)
+                    const values = row.split(',')
                     const el = headers.reduce(function(object,header,index){
                         object[header] = values[index]
                         return object
@@ -155,7 +156,36 @@ export default {
             this.upload_dialog= false
             this.$router.go(this.$router.currentRoute)
            
-        }
+        },
+        expotPostList(arr){
+            console.log(arr);
+            if (!arr.length) {
+                return;
+            }
 
+            var csvContent = "data:text/csv;charset=utf-8,";
+            // headers
+            csvContent += objectToCSVRow(Object.keys(arr[0]));
+            arr.forEach(function(item){
+                csvContent += objectToCSVRow(item);
+            }); 
+            var encodedUri = encodeURI(csvContent);
+            var link = document.getElementById("export");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "postlist.csv");
+
+            function objectToCSVRow(dataObject) {
+                
+                var dataArray = new Array;
+                for (var o in dataObject) {
+                    var innerValue = dataObject[o]===null?'':dataObject[o].toString();
+                    var result = innerValue.replace(/"/g, '""');
+                    result = '/' + result + '/';
+                    dataArray.push(result);
+                }
+                return dataArray.join(' ') + '\r\n';
+            }
+
+        }
     },
 };

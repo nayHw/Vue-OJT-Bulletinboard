@@ -80,7 +80,7 @@ const routes = [
             if(type == 'Admin' || type == 'User'){
                 return next();
             }
-            next('/login');
+            next('/');
         }
 
     },
@@ -88,6 +88,7 @@ const routes = [
         path: "/post/:id/edit",
         name: "post-edit",
         component: PostEdit
+
     },
     {
         path: "/",
