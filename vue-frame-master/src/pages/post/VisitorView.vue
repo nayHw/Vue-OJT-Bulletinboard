@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-row>
+    <CssLoader v-show="loader"></CssLoader>
+    <v-row v-show="!loader">
       <v-col cols="md-3"  v-for="post in showList" :key="post.id">
         <v-card class="mr-3">
           <v-img
@@ -30,14 +31,20 @@
 </template>
 
 <script>
+import CssLoader from "../../components/CssLoader.vue"
 export default{
   data(){
     return{
+      loader:true,
       showList: [],
       postList:[],
     }
   },
+  components:{
+    CssLoader
+  },
   mounted() {
+      setTimeout(() => (this.loader = false), 5000)
       this.$axios
           .get("/posts")
           .then((response) => {
@@ -55,4 +62,3 @@ export default{
   },
 }
 </script>
-

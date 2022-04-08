@@ -1,11 +1,12 @@
 import { mapGetters } from "vuex";
 import axios from "axios";
-import JsonExcel from "vue-json-excel";
 
+import CssLoader from "../../components/CssLoader.vue"
 
 export default {
     data() {
         return {
+            loader:true,
             postInfo: null,
             dialogTitle: "",
             dialog: false,
@@ -45,8 +46,8 @@ export default {
             showList: []
         };
     },
-    component:{
-        "downloadExcel" : JsonExcel
+    components:{
+      CssLoader
     },
     computed: {
         ...mapGetters(["isLoggedIn"]),
@@ -59,7 +60,7 @@ export default {
         },
     },
     mounted() {
-        
+        setTimeout(() => (this.loader = false), 5000)
         this.user_type = this.$store.getters.userType;
         this.$axios
             .get("/posts")

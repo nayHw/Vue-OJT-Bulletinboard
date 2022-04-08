@@ -23,7 +23,8 @@
         </div>
     </v-card-title>
     <v-container>
-        <v-data-table :headers="headers" :items="showList">
+        <CssLoader v-show="loader"></CssLoader>
+        <v-data-table :headers="headers" :items="showList" v-show="!loader">
             <template v-slot:[`item.title`]="{ item }">
                 <a v-if="item.id" :href="`/post/${item.id}/detail`">{{item.title}}</a>
             </template>
