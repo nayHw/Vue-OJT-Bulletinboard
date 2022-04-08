@@ -5,11 +5,20 @@
             <v-container>
                 <v-row>
                     <v-toolbar-title class="title">
-                        <span>{{ title }}</span>
+                        <a href="/" class="white--text text-decoration-none"><span>{{ title }}</span></a>
                     </v-toolbar-title>
-                    <div class="route-links">
-                    </div>
                     <v-spacer></v-spacer>
+                    <div class="route-links" v-if="isLoggedIn">
+                        <v-list color="primary">
+                            <v-list-item v-if="userType == 'User' || userType =='Admin'" @click="postList()" class="float-left">
+                                <v-list-item-title>Posts</v-list-item-title>
+                            </v-list-item>
+                            <v-list-item v-if="userType == 'Admin'" @click="userList()">
+                                <v-list-item-title>Users</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </div>
+
                     <div class="route-links">
                         <v-menu offset-y v-if="isLoggedIn">
                             <template v-slot:activator="{ on }">

@@ -1,6 +1,5 @@
 import { mapGetters } from "vuex";
 import constants from "../../constants";
-
 export default {
     data() {
         return {
@@ -11,26 +10,35 @@ export default {
         ...mapGetters(["isLoggedIn", "userType", "userName"]),
     },
     methods: {
+        postList(){
+            this.$router.push('/post/list');
+        },
+        userList(){
+            this.$router.push('/user/list');
+        },
         /**
          * This is to log out from system.
          * @returns void
          */
         logout() {
-            this.$store
-                .dispatch("logout")
-                .then(() => {
-                    this.$router.push({ name: "login" });
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            localStorage.clear();
+            this.$router.push("/login");
+            // this.$store
+            //     .dispatch("logout")
+            //     .then(() => {
+            //         this.$router.push({ name: "login" });
+            //     })
+            //     .catch((err) => {
+            //         console.log(err);
+            //     });
         },
         /**
          * This is to route profile page.
          * @returns void
          */
         showProfile() {
-            // TODO: do something
+            var id = this.$store.getters.userId;
+            this.$router.push(`/user/${id}/detail`);
         },
     },
 };

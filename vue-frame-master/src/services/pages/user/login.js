@@ -23,14 +23,15 @@ export default {
             this.$store
                 .dispatch("login", {
                     email: this.email,
-                    password: this.password
+                    password: this.password,
                 })
                 .then(() => {
                     this.error = "";
-                    this.$router.push({ name: "post-list" });
+                    this.$router.push({ name: "visitor-view" });
                 })
                 .catch(err => {
-                    this.error = err.response.data.errors.message;
+                    // this.error = err.response.data.errors.message;
+                    this.error = "!!email or password is wrong"
                     console.log(err);
                 });
         }
