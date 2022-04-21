@@ -48,6 +48,7 @@ export default {
         this.dialog = false;
     },
     updatePost() {
+      this.editPost.created_user_name =  this.$store.getters.userName;
       var input = this.editPost;
       axios.patch(`/posts/${this.$route.params.id}/edit`, input).then(() => {
         this.editPost = {

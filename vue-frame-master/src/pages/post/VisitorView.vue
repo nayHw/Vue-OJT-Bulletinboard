@@ -44,7 +44,7 @@ export default{
     CssLoader
   },
   mounted() {
-      setTimeout(() => (this.loader = false), 5000)
+      setTimeout(() => (this.loader = false), 1000)
       this.$axios
           .get("/posts")
           .then((response) => {

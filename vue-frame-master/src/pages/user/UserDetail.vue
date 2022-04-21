@@ -51,7 +51,7 @@
           </v-btn>
           <v-btn color="primary" class="float-right mb-5 ml-5">
             <router-link :to="`/user/${id}/reset`" class="white--text text-decoration-none">
-              Change Password
+              Password Reset
             </router-link>
           </v-btn>
         </v-card-text>

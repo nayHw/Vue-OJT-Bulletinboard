@@ -60,7 +60,7 @@ export default {
         },
     },
     mounted() {
-        setTimeout(() => (this.loader = false), 5000)
+        setTimeout(() => (this.loader = false), 1000)
         this.user_type = this.$store.getters.userType;
         this.$axios
             .get("/posts")
@@ -117,28 +117,37 @@ export default {
         addPost(){
             let csv_file = this.file;
             let reader = new FileReader();
-            let created_user_id = this.$store.getters.userId;
-            let created_user_name = this.$store.getters.userName;
-            reader.onload = function(e){
-                const text = e.target.result
-                const result = csvToArray(text)
-                for(var i=0; i< result.length-1;i++){
-                    axios.post("http://localhost:8000/api/posts/create",
-                    {
-                        "title": result[i].title,
-                        "description": result[i].description,
-                        "status": true,
-                        "created_user_id": created_user_id,
-                        "created_user_name": created_user_name,
-                        "deleated_user_id": null,
-                        "deleated_at": null
-                    }).then(() => {
-                        console.log('success')
-                    })
+            if (reader) {
+                let id = this.$store.getters.userId;
+                let name = this.$store.getters.userName;
+                reader.onload = function(e){
+                    const text = e.target.result
+                    const result = csvToArray(text)
+                    for(var i=0; i< result.length-1;i++){
+                        var input = 
+                        {
+                            "title": result[i].title,
+                            "description": result[i].description,
+                            "status": true,
+                            "created_user_id": id,
+                            "created_user_name": name,
+                            "deleated_user_id": null,
+                            "deleated_at": null
+                        }
+                        console.log(input);
+                        axios.post("http://localhost:8000/api/posts/create",input).then(() => {
+                            console.log('success')
+                        })
+                    }
                 }
+                reader.readAsText(csv_file)
+                    
+                this.upload_dialog= false
+                this.$router.go(this.$router.currentRoute)
+            }else{
+                alert('your file is empty!!')
             }
-            reader.readAsText(csv_file)
-           
+            
             function csvToArray(str){
                 const headers = str.slice(0,str.indexOf("\n")).split(/[,\r]+/)
                 
@@ -153,9 +162,6 @@ export default {
                 })
                 return arr
             }
-            
-            this.upload_dialog= false
-            this.$router.go(this.$router.currentRoute)
            
         },
         expotPostList(arr){

@@ -17,8 +17,9 @@
                 <v-btn class="post-list-btn mr-4" color="primary" @click="uploadPost">
                     Upload
                 </v-btn>
-                <a id="export" class="post-list-btn mr-4" color="primary" @click="expotPostList(showList)" >Download</a>
-               
+                <v-btn class="post-list-btn mr-4" color="primary" @click="expotPostList(showList)">
+                    <a id="export" class="white--text text-decoration-none" >Download</a>
+                </v-btn>
             </v-row>
         </div>
     </v-card-title>
