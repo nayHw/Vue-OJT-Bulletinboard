@@ -43,17 +43,17 @@ const routes = [
     {
         path:"/user/:id/edit",
         name: "user-edit",
-        component: UserEdit
+        component: UserEdit,
     },
     {
         path:"/user/create",
         name: "user-create",
-        component: UserCreate
+        component: UserCreate,
     }, 
     {  
       path:"/user/:id/detail",
         name: "user-detail",
-        component: UserDetail
+        component: UserDetail,
     },
     {
         path: "/post/list",
@@ -70,7 +70,7 @@ const routes = [
     {
         path: "/post/:id/detail",
         name: "post-detail",
-        component: PostDetail
+        component: PostDetail,
     },
     {   path: "/post/create",
         name: "post-create",
@@ -87,17 +87,18 @@ const routes = [
     {
         path: "/post/:id/edit",
         name: "post-edit",
-        component: PostEdit
+        component: PostEdit,
 
     },
     {
-        path: "/",
+        path: "/view",
         name: "visitor-view",
-        component: VisitorView
+        component: VisitorView,
+        meta: { requiresAuth: false }
     },
     {
         path: "/*",
-        redirect: "/",
+        redirect: "/view",
     },
 ];
 
@@ -110,9 +111,9 @@ const router = new VueRouter({
  * This is to handle and check authentication for routing.
  */
 router.beforeEach((to, from, next) => {
-    const loggedIn = store.getters.isLoggedIn;
-    if (!loggedIn && to.name != "login") {
-        return next("/login");
+    // const loggedIn = store.getters.isLoggedIn;
+    if (to.meta.requiresAuth ) {
+        return next("/view");
     }
     next();
 });

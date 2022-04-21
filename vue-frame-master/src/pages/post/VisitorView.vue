@@ -1,6 +1,23 @@
 <template>
   <div>
     <CssLoader v-show="loader"></CssLoader>
+    <v-card>
+      <v-card-title>
+          Post list
+          <v-spacer></v-spacer>
+          <div>
+              <v-row class="filter-bar">
+                  <v-form ref="form" class="d-flex" v-on:submit.prevent="filterPosts">
+                      <v-text-field label="Search keyword" hide-details="auto" v-model="keyword"></v-text-field> 
+                      <v-btn class="post-list-btn mr-4" color="primary" type="submit">Filter</v-btn>
+                  </v-form>
+                  <v-btn class="post-list-btn mr-4" color="primary" @click="expotPostList(showList)">
+                      <a id="export" class="white--text text-decoration-none" >Download</a>
+                  </v-btn>
+              </v-row>
+          </div>
+      </v-card-title>
+    </v-card>
     <v-row v-show="!loader">
       <v-col cols="md-3"  v-for="post in showList" :key="post.id">
         <v-card class="mr-3">
@@ -61,4 +78,6 @@ export default{
           });
   },
 }
+</script>
+<script src="../../services/post/post-list.js">
 </script>

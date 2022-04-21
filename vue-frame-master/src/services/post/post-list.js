@@ -2,7 +2,7 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 
 import CssLoader from "../../components/CssLoader.vue"
-
+import PostDetail from "../../pages/post/PostDetail"
 export default {
     data() {
         return {
@@ -11,6 +11,7 @@ export default {
             dialogTitle: "",
             dialog: false,
             upload_dialog:false,
+            detail_dialog:false,
             file: '',
             isDeleteDialog: false,
             keyword: '',
@@ -19,23 +20,23 @@ export default {
             headerList: [
                 {
                     text: "ID",
-                    align: "start",
+                    align: "center",
                     value: "id",
                 },
                 {
                     text: "Post Title",
                     value: "title",
-                    width: "15%"
+                    width: "25%"
                 },
                 {
                     text: "Post Desciption",
                     value: "description",
-                    width: "20%"
+                    width: "30%"
                 },
                 {
                     text: "Posted User",
                     value: "created_user_name",
-                    width: "10%"
+                    width: "15%"
                 },
                 {
                     text: "Operation",
@@ -43,11 +44,13 @@ export default {
                 },
             ],
             postList: [],
-            showList: []
+            showList: [],
+            postDetail:[]
         };
     },
     components:{
-      CssLoader
+      CssLoader,
+      PostDetail
     },
     computed: {
         ...mapGetters(["isLoggedIn"]),
@@ -110,6 +113,10 @@ export default {
         },
         uploadPost(){
             this.upload_dialog = true
+        },
+        detailPost(item){
+            this.postDetail = item;
+            this.detail_dialog = true
         },
         Cancel(){
             this.upload_dialog = false

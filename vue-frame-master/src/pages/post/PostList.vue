@@ -27,7 +27,7 @@
         <CssLoader v-show="loader"></CssLoader>
         <v-data-table :headers="headers" :items="showList" v-show="!loader">
             <template v-slot:[`item.title`]="{ item }">
-                <a v-if="item.id" :href="`/post/${item.id}/detail`">{{item.title}}</a>
+                <a v-if="item.id" @click="detailPost(item)">{{item.title}}</a>
             </template>
             <template v-slot:[`item.operation`] = "{ item }">
                 <v-row>
@@ -44,9 +44,32 @@
                 </v-row>
             </template>
         </v-data-table>
+    
+        <v-row no-gutters>
+            <v-col md="6" offset-md="2">
+                <v-dialog v-model="detail_dialog" class="box-shadow">
+                    <v-card class="mx-auto" max-width="700">
+                        <v-img
+                        class="white--text align-end"
+                        height="300px"
+                        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                        >
+                            <v-card-title>{{postDetail.title}}</v-card-title>
+                        </v-img>
+
+                        <v-card-text class="text--primary">
+                            <div>{{postDetail.description}}</div>
+                        </v-card-text>
+
+                        <v-card-actions>
+                            <v-card-text color="orange" text>Posted by {{postDetail.created_user_name}}</v-card-text>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-col>
+        </v-row>
         
     </v-container>
-
     <v-row no-gutters>
         <v-col md="6" offset-md="3">
             <v-dialog v-model="upload_dialog" max-width="500">
@@ -92,4 +115,12 @@
 </script>
 
 <style scoped src="../../assets/css/pages/post/post-list.css">
+</style>
+<style>
+    .v-dialog--active{
+        box-shadow: none;
+    }
+    .v-dialog--active .v-card__text{
+        color: rgb(187, 126, 14) !important;
+    }
 </style>
