@@ -37,7 +37,7 @@ export default {
                     value: "operation",
                 },
             ],
-            userType : ["Admin","User","Visitor"],
+            userType : ["Admin","User"],
             userList: [],
             showList: [],
         };

@@ -27,41 +27,73 @@ const routes = [
         path: "/user/:id/reset",
         name: "password-reset",
         component: PasswordReset,
+        beforeEnter: (to, from, next) => {
+            const loggedIn = store.getters.isLoggedIn;
+            if(loggedIn){
+                return next();
+            }
+            next('/login');
+        }
     },
     {
         path:"/user/list",
         name: "user-list",
         component: UserList,
         beforeEnter: (to, from, next) => {
+            const loggedIn = store.getters.isLoggedIn;
             const type = store.getters.userType
-            if(type == 'Admin'){
+            if(loggedIn && type == 'Admin'){
                 return next();
             }
-            next('/post/list');
+            next('/login');
         }
     },
     {
         path:"/user/:id/edit",
         name: "user-edit",
         component: UserEdit,
+        beforeEnter: (to, from, next) => {
+            const loggedIn = store.getters.isLoggedIn;
+            const userType = store.getters.userType;
+            if(loggedIn && userType == 'Admin'){
+                return next();
+            }
+            next('/login');
+        }
     },
     {
         path:"/user/create",
         name: "user-create",
         component: UserCreate,
+        beforeEnter: (to, from, next) => {
+            const loggedIn = store.getters.isLoggedIn;
+            const userType = store.getters.userType;
+            if(loggedIn && userType == 'Admin'){
+                return next();
+            }
+            next('/login');
+        }
     }, 
     {  
       path:"/user/:id/detail",
         name: "user-detail",
         component: UserDetail,
+        beforeEnter: (to, from, next) => {
+            const loggedIn = store.getters.isLoggedIn;
+            const userType = store.getters.userType;
+            if(loggedIn && userType == 'Admin'){
+                return next();
+            }
+            next('/login');
+        }
     },
     {
         path: "/post/list",
         name: "post-list",
         component: PostList,
         beforeEnter: (to, from, next) => {
-            const type = store.getters.userType
-            if(type == 'Admin' || type == 'User'){
+            const loggedIn = store.getters.isLoggedIn;
+            if(loggedIn){
                 return next();
             }
             next('/login');
@@ -75,12 +107,12 @@ const routes = [
     {   path: "/post/create",
         name: "post-create",
         component: PostCreate,
-        beforeEnter: (to, from, next) => {
-            const type = store.getters.userType
-            if(type == 'Admin' || type == 'User'){
+        beforeEnter: (to, from, next) => {  
+            const loggedIn = store.getters.isLoggedIn;
+            if(loggedIn){
                 return next();
             }
-            next('/');
+            next('/login');
         }
 
     },
@@ -88,17 +120,23 @@ const routes = [
         path: "/post/:id/edit",
         name: "post-edit",
         component: PostEdit,
+        beforeEnter: (to, from, next) => {  
+            const loggedIn = store.getters.isLoggedIn;
+            if(loggedIn){
+                return next();
+            }
+            next('/login');
+        }
 
     },
     {
-        path: "/view",
+        path: "/",
         name: "visitor-view",
         component: VisitorView,
-        meta: { requiresAuth: false }
     },
     {
         path: "/*",
-        redirect: "/view",
+        redirect: "/post/list",
     },
 ];
 
@@ -111,9 +149,9 @@ const router = new VueRouter({
  * This is to handle and check authentication for routing.
  */
 router.beforeEach((to, from, next) => {
-    // const loggedIn = store.getters.isLoggedIn;
-    if (to.meta.requiresAuth ) {
-        return next("/view");
+    const loggedIn = store.getters.isLoggedIn;
+    if (!loggedIn && to.name != "login") {
+        return next("/login");
     }
     next();
 });

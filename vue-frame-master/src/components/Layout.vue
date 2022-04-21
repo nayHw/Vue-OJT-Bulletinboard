@@ -10,7 +10,7 @@
                     <v-spacer></v-spacer>
                     <div class="route-links" v-if="isLoggedIn">
                         <v-list color="primary">
-                            <v-list-item v-if="userType == 'User' || userType =='Admin'" @click="postList()" class="float-left">
+                            <v-list-item v-if="isLoggedIn" @click="postList()" class="float-left">
                                 <v-list-item-title>Posts</v-list-item-title>
                             </v-list-item>
                             <v-list-item v-if="userType == 'Admin'" @click="userList()">
