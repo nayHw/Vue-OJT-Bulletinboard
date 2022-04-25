@@ -27,7 +27,7 @@ export default {
                 })
                 .then(() => {
                     this.error = "";
-                    this.$router.push({ name: "visitor-view" });
+                    this.$router.push({ name: "post-list" });
                 })
                 .catch(err => {
                     // this.error = err.response.data.errors.message;

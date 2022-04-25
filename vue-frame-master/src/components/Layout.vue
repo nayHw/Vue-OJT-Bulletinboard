@@ -5,7 +5,7 @@
             <v-container>
                 <v-row>
                     <v-toolbar-title class="title">
-                        <a href="/" class="white--text text-decoration-none"><span>{{ title }}</span></a>
+                        <a href="/post/list" class="white--text text-decoration-none"><span>{{ title }}</span></a>
                     </v-toolbar-title>
                     <v-spacer></v-spacer>
                     <div class="route-links" v-if="isLoggedIn">

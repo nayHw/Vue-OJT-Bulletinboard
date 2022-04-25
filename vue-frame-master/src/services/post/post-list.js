@@ -2,7 +2,6 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 
 import CssLoader from "../../components/CssLoader.vue"
-import PostDetail from "../../pages/post/PostDetail"
 export default {
     data() {
         return {
@@ -50,7 +49,6 @@ export default {
     },
     components:{
       CssLoader,
-      PostDetail
     },
     computed: {
         ...mapGetters(["isLoggedIn"]),
@@ -120,6 +118,7 @@ export default {
         },
         Cancel(){
             this.upload_dialog = false
+            this.detail_dialog = false
         },
         addPost(){
             let csv_file = this.file;

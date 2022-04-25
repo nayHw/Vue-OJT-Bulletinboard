@@ -9,12 +9,12 @@
                     <v-text-field label="Search keyword" hide-details="auto" v-model="keyword"></v-text-field> 
                     <v-btn class="post-list-btn mr-4" color="primary" type="submit">Filter</v-btn>
                 </v-form>
-                <v-btn class="post-list-btn mr-4" color="primary">    
+                <v-btn class="post-list-btn mr-4" color="primary" v-if="isLoggedIn">    
                     <router-link to="/post/create" class="white--text text-decoration-none">
                         Create
                     </router-link>
                 </v-btn>    
-                <v-btn class="post-list-btn mr-4" color="primary" @click="uploadPost">
+                <v-btn v-if="isLoggedIn" class="post-list-btn mr-4" color="primary" @click="uploadPost">
                     Upload
                 </v-btn>
                 <v-btn class="post-list-btn mr-4" color="primary" @click="expotPostList(showList)">
@@ -63,6 +63,10 @@
 
                         <v-card-actions>
                             <v-card-text color="orange" text>Posted by {{postDetail.created_user_name}}</v-card-text>
+                                
+                            <v-btn class="float-right"
+                            @click="Cancel"
+                            >Close</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>

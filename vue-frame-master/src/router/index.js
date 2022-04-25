@@ -9,10 +9,8 @@ import UserEdit from "../pages/user/UserEdit"
 import PasswordReset from "../pages/user/PasswordReset"
 //post
 import PostList from "../pages/post/PostList";
-import PostDetail from "../pages/post/PostDetail";
 import PostCreate from "../pages/post/PostCreate";
 import PostEdit from "../pages/post/PostEdit";
-import VisitorView from "../pages/post/VisitorView"
 import store from "../store";
 
 Vue.use(VueRouter);
@@ -87,23 +85,6 @@ const routes = [
             next('/login');
         }
     },
-    {
-        path: "/post/list",
-        name: "post-list",
-        component: PostList,
-        beforeEnter: (to, from, next) => {
-            const loggedIn = store.getters.isLoggedIn;
-            if(loggedIn){
-                return next();
-            }
-            next('/login');
-        }
-    },
-    {
-        path: "/post/:id/detail",
-        name: "post-detail",
-        component: PostDetail,
-    },
     {   path: "/post/create",
         name: "post-create",
         component: PostCreate,
@@ -130,10 +111,11 @@ const routes = [
 
     },
     {
-        path: "/",
-        name: "visitor-view",
-        component: VisitorView,
+        path: "/post/list",
+        name: "post-list",
+        component: PostList,
     },
+   
     {
         path: "/*",
         redirect: "/post/list",
@@ -150,8 +132,8 @@ const router = new VueRouter({
  */
 router.beforeEach((to, from, next) => {
     const loggedIn = store.getters.isLoggedIn;
-    if (!loggedIn && to.name != "login") {
-        return next("/login");
+    if (!loggedIn) {
+        console.log('login')
     }
     next();
 });
